@@ -1,0 +1,41 @@
+#import pinelib as pl
+import pinelib.series as pls
+import pinelib.math as plm
+
+test_serie = pls.Serie([1, 2, 3, 4, 5])
+print(test_serie)
+print(test_serie[2])
+print('Add S+S', test_serie + test_serie[2])
+print('Add S+I', test_serie + 2)
+print('Sub S-S', test_serie - test_serie[2])
+print('Sub S-I', test_serie - 2)
+print('FDiv S//S', test_serie // test_serie[2])
+print('FDiv S//I', test_serie // 2)
+print('TDiv S/S', test_serie / test_serie[2])
+print('TDiv S/I', test_serie / 2)
+print('Mul S*S', test_serie * test_serie[2])
+print('Mul S*I', test_serie * 2)
+print('Mod S%S', test_serie % test_serie[2])
+print('Mod S%I', test_serie % 2)
+print('Pow S**S', test_serie ** test_serie[2])
+print('Pow S**I', test_serie ** 2)
+
+print(pls.Serie([1, 2, 3, 4, 5]) + pls.Serie([1, 1, 1, 1, 1, 1, 1, 1]))
+test_serie2 = pls.Serie([1, 1, 1, 1, 1, 1])
+print('Before iadd:', test_serie2)
+test_serie2 += test_serie
+print('After iadd:', test_serie2)
+
+print('\n\n\nMath:')
+print(test_serie)
+print('e', plm.e)
+print('pi', plm.pi)
+print('Sum', plm.sum(test_serie))
+print('Sqrt', plm.sqrt(test_serie))
+print('Pow', plm.pow(test_serie, 2))
+print('Min', plm.min(test_serie))
+print('Max', plm.max(test_serie))
+print('Exp', plm.exp(test_serie))
+print('Cos', plm.cos(test_serie))
+print('Cos -> Abs', plm.abs(plm.cos(test_serie)))
+print(plm.abs(1))
