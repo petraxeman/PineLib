@@ -5,11 +5,16 @@ from pinelib import utils
 
 
 class Serie:
-    def __init__(self, data: np.ndarray or tuple or list):
+    def __init__(self, data: np.ndarray | tuple | list):
         self.data = np.array(data)
-    
+        self.__reversed_data = np.flip(self.data)
+
+    def get(self, index: int) -> int | float:
+        return self.__reversed_data[index]
+
     def __getitem__(self, key: int):
-        return Serie(np.pad(self.data[key:], (0, key)))
+        return self.__reversed_data[key]
+        #return Serie(np.pad(self.data[key:], (0, key)))
     
     def __add__(self, value: 'Serie') -> 'Serie':
         if isinstance(value, Serie):
