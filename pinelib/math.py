@@ -1,8 +1,9 @@
-import pinelib.series as pls
+from pinelib.series import Serie
 import numpy as np
 import math
 
-math_abs = abs
+__math_abs = abs
+__math_sum = sum
 
 e = 2.7182818284590452
 pi = 3.1415926535897932
@@ -10,102 +11,103 @@ phi = 1.6180339887498948
 rphi = 0.6180339887498948
 
 
-def abs(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.abs(value.data))
+def abs(value: Serie | list | tuple | int | float) -> Serie | int | float:
+    if isinstance(value, Serie):
+        return Serie(np.abs(value.data))
     elif isinstance(value, (list, tuple)):
-        array = np.array(value)
+        array = (value)
         return np.abs(array)
     elif isinstance(value, (int, float)):
-        return math_abs(value)
+        return __math_abs(value)
 
 
-def acos(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.arccos(value.data))
+def acos(value: Serie | list | tuple | int | float) -> Serie | float:
+    if isinstance(value, Serie):
+        return Serie(np.arccos(value.data))
     elif isinstance(value, (list, tuple)):
-        array = np.array(value)
+        array = (value)
         return np.arccos(array)
     elif isinstance(value, (int, float)):
         return math.acos(value)
 
 
-def asin(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.arcsin(value.data))
+def asin(value: Serie | list | tuple | int | float) -> Serie | float:
+    if isinstance(value, Serie):
+        return Serie(np.arcsin(value.data))
     elif isinstance(value, (list, tuple)):
-        array = np.array(value)
+        array = (value)
         return np.arcsin(array)
     elif isinstance(value, (int, float)):
         return math.asin(value)
 
 
-def atan(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.arctan(value.data))
+def atan(value: Serie | list | tuple | int | float) -> Serie | float:
+    if isinstance(value, Serie):
+        return Serie(np.arctan(value.data))
     elif isinstance(value, (list, tuple)):
-        array = np.array(value)
+        array = (value)
         return np.arctan(array)
     elif isinstance(value, (int, float)):
         return math.atan(value)
 
 
-def avg(*value):
-    if isinstance(value, pls.Serie):
-        return np.average(value.data)
-    elif isinstance(value, (list, tuple)):
-        return sum(value) / len(value)
+def avg(*value: list | tuple | Serie) -> Serie | float:
+    if isinstance(value[0], Serie):
+        value = value[0].data
+        return Serie([__math_sum(value[i:]) / len(value[i:]) for i in range(len(value))])
+    elif isinstance(value, tuple):
+        return __math_sum(value) / len(value)
 
 
-def ceil(value):
-    if isinstance(value, pls.Serie):
+def ceil(value: Serie) -> Serie:
+    if isinstance(value, Serie):
         return np.ceil(value)
 
 
-def sqrt(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.sqrt(value.data))
+def sqrt(value: Serie | int | float) -> Serie | float:
+    if isinstance(value, Serie):
+        return Serie(np.sqrt(value.data))
     elif isinstance(value, (int, float)):
         return math.sqrt(value)
 
 
-def sum(value):
-    if isinstance(value, pls.Serie):
+def sum(value: Serie | list | tuple) -> Serie:
+    if isinstance(value, Serie):
         return np.sum(value.data)
     elif isinstance(value, (list, tuple)):
-        return sum(value)
+        return __math_sum(value)
 
 
-def pow(value, degree: int):
-    if isinstance(value, (pls.Serie, int, float)):
+def pow(value: Serie | int | float, degree: int) -> Serie | int | float:
+    if isinstance(value, (Serie, int, float)):
         return value ** degree
 
 
-def min(value):
-    if isinstance(value, pls.Serie):
+def min(value: Serie | list | tuple) -> Serie:
+    if isinstance(value, Serie):
         return np.min(value.data)
     elif isinstance(value, (list, tuple)):
         return min(value)
 
 
-def max(value):
-    if isinstance(value, pls.Serie):
+def max(value: Serie | list | tuple):
+    if isinstance(value, Serie):
         return np.max(value.data)
     elif isinstance(value, (list, tuple)):
         return max(value)
 
 
-def exp(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.exp(value.data))
+def exp(value: Serie | list | tuple):
+    if isinstance(value, Serie):
+        return Serie(np.exp(value.data))
     elif isinstance(value, (list, tuple)):
-        array = np.array(value)
+        array = (value)
         return np.exp(array)
 
 
-def cos(value):
-    if isinstance(value, pls.Serie):
-        return pls.Serie(np.cos(value.data))
+def cos(value: Serie | list | tuple):
+    if isinstance(value, Serie):
+        return Serie(np.cos(value.data))
     elif isinstance(value, (list, tuple)):
-        array = np.array(value)
+        array = (value)
         return np.cos(array)
