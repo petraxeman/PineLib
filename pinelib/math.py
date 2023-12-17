@@ -1,6 +1,6 @@
 from pinelib.series import Serie
 import numpy as np
-import math
+import math as py_math
 
 __math_abs = abs
 __math_sum = sum
@@ -12,6 +12,7 @@ rphi = 0.6180339887498948
 
 
 def abs(value: Serie | list | tuple | int | float) -> Serie | int | float:
+    "Calculate the absolute value of Serie, list or integer"
     if isinstance(value, Serie):
         return Serie(np.abs(value.data))
     elif isinstance(value, (list, tuple)):
@@ -23,32 +24,35 @@ def abs(value: Serie | list | tuple | int | float) -> Serie | int | float:
 
 def acos(value: Serie | list | tuple | int | float) -> Serie | float:
     if isinstance(value, Serie):
-        return Serie(np.arccos(value.data))
+        value = value.get_array_for_calc()
+        return Serie(np.arccos(value))
     elif isinstance(value, (list, tuple)):
         array = (value)
         return np.arccos(array)
     elif isinstance(value, (int, float)):
-        return math.acos(value)
+        return py_math.acos(value)
 
 
 def asin(value: Serie | list | tuple | int | float) -> Serie | float:
     if isinstance(value, Serie):
-        return Serie(np.arcsin(value.data))
+        value = value.get_array_for_calc()
+        return Serie(np.arcsin(value))
     elif isinstance(value, (list, tuple)):
         array = (value)
         return np.arcsin(array)
     elif isinstance(value, (int, float)):
-        return math.asin(value)
+        return py_math.asin(value)
 
 
 def atan(value: Serie | list | tuple | int | float) -> Serie | float:
     if isinstance(value, Serie):
-        return Serie(np.arctan(value.data))
+        value = value.get_array_for_calc()
+        return Serie(np.arctan(value))
     elif isinstance(value, (list, tuple)):
         array = (value)
         return np.arctan(array)
     elif isinstance(value, (int, float)):
-        return math.atan(value)
+        return py_math.atan(value)
 
 
 def avg(*value: list | tuple | Serie) -> Serie | float:
@@ -68,7 +72,7 @@ def sqrt(value: Serie | int | float) -> Serie | float:
     if isinstance(value, Serie):
         return Serie(np.sqrt(value.data))
     elif isinstance(value, (int, float)):
-        return math.sqrt(value)
+        return py_math.sqrt(value)
 
 
 def sum(value: Serie | list | tuple) -> Serie:
