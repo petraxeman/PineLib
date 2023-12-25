@@ -1,6 +1,6 @@
 from pinelib.series import Serie
 import numpy as np
-import math as py_math
+import math as __math
 
 __math_abs = abs
 __math_sum = sum
@@ -12,55 +12,53 @@ rphi = 0.6180339887498948
 
 
 def abs(value: Serie | list | tuple | int | float) -> Serie | int | float:
-    "Calculate the absolute value of Serie, list or integer"
+    """ Function convert all numbers to absolute numbers and return Serie, int or float """
     if isinstance(value, Serie):
-        return Serie(np.abs(value.data))
+        return Serie(np.abs(value.data))      # Return Series with absolute values
     elif isinstance(value, (list, tuple)):
-        array = (value)
-        return np.abs(array)
+        return Serie(np.abs(np.array(value))) # Also return a Series with absolute values
     elif isinstance(value, (int, float)):
-        return __math_abs(value)
+        return __math_abs(value)              # Return only one absolute integer or float
 
 
 def acos(value: Serie | list | tuple | int | float) -> Serie | float:
+    """ Function return calculated arc cos values from given array or number. Return Serie or float """
     if isinstance(value, Serie):
-        value = value.get_array_for_calc()
-        return Serie(np.arccos(value))
+        return Serie(np.arccos(value.data))      # Return Series with arc cos values
     elif isinstance(value, (list, tuple)):
-        array = (value)
-        return np.arccos(array)
+        return Serie(np.arccos(np.array(value))) # Return Series with arc cos values
     elif isinstance(value, (int, float)):
-        return py_math.acos(value)
+        return __math.acos(value)                # Return only one arc cos float
 
 
 def asin(value: Serie | list | tuple | int | float) -> Serie | float:
+    """ Function return calculated arc sin values from given array or number. Return Serie or float """
     if isinstance(value, Serie):
-        value = value.get_array_for_calc()
-        return Serie(np.arcsin(value))
+        return Serie(np.arcsin(value.data))      # Return Series with arc sin values
     elif isinstance(value, (list, tuple)):
-        array = (value)
-        return np.arcsin(array)
+        return Serie(np.arcsin(np.array(value))) # Return Series with arc sin values
     elif isinstance(value, (int, float)):
-        return py_math.asin(value)
+        return __math.asin(value)                # Return only one arc sin float
 
 
 def atan(value: Serie | list | tuple | int | float) -> Serie | float:
+    """ Function return calculated arc tan values from given array or number. Return Serie or float """
     if isinstance(value, Serie):
-        value = value.get_array_for_calc()
-        return Serie(np.arctan(value))
+        return Serie(np.arctan(value.data))      # Return Series with arc tanh values
     elif isinstance(value, (list, tuple)):
-        array = (value)
-        return np.arctan(array)
+        return Serie(np.arctan(np.array(value))) # Return Series with arc tanh values
     elif isinstance(value, (int, float)):
-        return py_math.atan(value)
+        return __math.atan(value)                # Return only one arc tanh float
 
 
 def avg(*value: list | tuple | Serie) -> Serie | float:
+    """ Function finds average value of given array or squence of numbers and return Serie or float """
     if isinstance(value[0], Serie):
-        value = value[0].data
-        return Serie([__math_sum(value[i:]) / len(value[i:]) for i in range(len(value))])
+        value = list(np.flip(value[0].data))
+        value = np.array([__math_sum(value[i:]) / len(value[i:]) for i in range(len(value))])
+        return Serie(value)                      # Return Series with calculated average numbers
     elif isinstance(value, tuple):
-        return __math_sum(value) / len(value)
+        return __math_sum(value) / len(value)    # Return average float number
 
 
 def ceil(value: Serie) -> Serie:
@@ -72,7 +70,7 @@ def sqrt(value: Serie | int | float) -> Serie | float:
     if isinstance(value, Serie):
         return Serie(np.sqrt(value.data))
     elif isinstance(value, (int, float)):
-        return py_math.sqrt(value)
+        return math.sqrt(value)
 
 
 def sum(value: Serie | list | tuple) -> Serie:
