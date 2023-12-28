@@ -53,6 +53,8 @@ def atan(value: Serie | list | tuple | int | float) -> Serie | float:
 
 def avg(*value: list | tuple | Serie) -> Serie | float:
     """ Function finds average value of given array or squence of numbers and return Serie or float """
+    if isinstance(value[0], (list, tuple)):
+        value[0] = np.array(value[0])
     if isinstance(value[0], Serie):
         value = list(np.flip(value[0].data))
         value = np.array([__math_sum(value[i:]) / len(value[i:]) for i in range(len(value))])
@@ -63,14 +65,14 @@ def avg(*value: list | tuple | Serie) -> Serie | float:
 
 def ceil(value: Serie) -> Serie:
     if isinstance(value, Serie):
-        return np.ceil(value)
+        return np.ceil(value.data)
 
 
 def sqrt(value: Serie | int | float) -> Serie | float:
     if isinstance(value, Serie):
         return Serie(np.sqrt(value.data))
     elif isinstance(value, (int, float)):
-        return math.sqrt(value)
+        return __math.sqrt(value)
 
 
 def sum(value: Serie | list | tuple) -> Serie:
